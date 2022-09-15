@@ -4,7 +4,7 @@
 import { UserInfo } from '../types/user';
 
 export const validateId = (id: UserInfo['user']['id']) => {
-  const regExp = /^[A-Za-Z0-9]{5, 30}$/;
+  const regExp = /^[0-9a-zA-Z]{5,30}$/;
   return regExp.test(id);
 };
 
@@ -12,6 +12,6 @@ export const validateId = (id: UserInfo['user']['id']) => {
 //     - 영문 대문자, 영문 소문자와 숫자가 모두 포함되어야 합니다.
 //     - 8자 이상 30자 이하로 작성해야 합니다.
 export const validatePassword = (password: string) => {
-  const regExp = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d){8, 30}$/;
+  const regExp = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,30}$/;
   return regExp.test(password);
 };
