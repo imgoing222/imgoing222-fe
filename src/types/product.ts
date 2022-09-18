@@ -2,5 +2,10 @@ export type Product = {
   id: string;
   name: string;
   thumbnail: string | null;
-  price: number;
+  price: string;
+};
+
+export type Pagination = {
+  products: Product[];
+  totalCount: number;
 };
