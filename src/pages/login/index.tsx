@@ -1,22 +1,23 @@
-import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
 import useLogin from './useLogin';
+import { useRecoilState } from 'recoil';
+import { loginState } from '../../stores';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const LoginPage: NextPage = () => {
   const { disabled, errors, visited, onSubmit, onChangeInput, showErrors } = useLogin();
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoggedIn) router.push('/');
+  }, []);
 
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
       <Form onSubmit={onSubmit}>
         <div>
           <Label>아이디</Label>
@@ -37,17 +38,6 @@ const LoginPage: NextPage = () => {
 };
 
 export default LoginPage;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Title = styled.a`
-  font-size: 48px;
-`;
 
 const Form = styled.form`
   display: flex;
@@ -77,7 +67,6 @@ const TextInput = styled.input`
   border-radius: 12px;
 `;
 
-// 에러 발생 시 display: block; 평소에는 none
 const ErrorMessage = styled.div`
   margin-top: 8px;
   font-weight: 400;
