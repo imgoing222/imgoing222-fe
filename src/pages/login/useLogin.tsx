@@ -2,7 +2,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import userApi from '../../apis/userApi';
 import { validate } from '../../utilities/validateInput';
-
+import { useRecoilState } from 'recoil';
+import { loginState, userState } from '../../stores';
 interface LoginData {
   id: string;
   password: string;
@@ -18,6 +19,9 @@ const useLogin = () => {
   const [disabled, setDisabled] = useState(true);
   const [errors, setErrors] = useState({ id: '', password: '' });
   const [visited, setVisited] = useState({ id: false, password: false });
+
+  const [user, setUser] = useRecoilState(userState);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
   const isLoginButtonValid = ({ id, password }: LoginData) => {
     if (validate('id', id) && validate('password', password)) setDisabled(false);
@@ -46,7 +50,8 @@ const useLogin = () => {
     e.preventDefault();
     try {
       const res = await userApi.login(values);
-      // 유저정보 저장
+      setUser(res.data.user.NAME);
+      setIsLoggedIn(true);
       router.push('/');
     } catch (err) {
       // 에러 처리
