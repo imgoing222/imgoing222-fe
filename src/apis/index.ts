@@ -24,7 +24,7 @@ const setInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.response.use(
     (response) => {
       // 응답 데이터를 가공
-      return response.data.data;
+      return response.data;
     },
     (error) => {
       // 오류 응답을 처리
