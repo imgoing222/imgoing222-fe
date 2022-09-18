@@ -2,8 +2,11 @@ import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
+import useLogin from './useLogin';
 
 const LoginPage: NextPage = () => {
+  const { disabled, errors, visited, onSubmit, onChangeInput, showErrors } = useLogin();
+
   return (
     <>
       <Header>
@@ -14,18 +17,20 @@ const LoginPage: NextPage = () => {
           <p>login</p>
         </Link>
       </Header>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <div>
           <Label>아이디</Label>
-          <TextInput type='text' />
-          <ErrorMessage>에러메시지</ErrorMessage>
+          <TextInput type='text' id='id' onChange={onChangeInput} onBlur={showErrors} />
+          {visited.id && <ErrorMessage>{errors.id}</ErrorMessage>}
         </div>
         <div>
           <Label>비밀번호</Label>
-          <TextInput type='password' />
-          <ErrorMessage>에러메시지</ErrorMessage>
+          <TextInput type='password' id='password' onChange={onChangeInput} onBlur={showErrors} />
+          {visited.password && <ErrorMessage>{errors.password}</ErrorMessage>}
         </div>
-        <LoginButton disabled>로그인</LoginButton>
+        <LoginButton disabled={disabled} type='submit'>
+          로그인
+        </LoginButton>
       </Form>
     </>
   );
@@ -44,7 +49,7 @@ const Title = styled.a`
   font-size: 48px;
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 40px;
