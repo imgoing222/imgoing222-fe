@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
 
+import { ErrorPage } from '../../components/ErrorPage';
 import useProduct from './useProduct';
 
 const ProductDetailPage: NextPage = () => {
@@ -9,7 +10,7 @@ const ProductDetailPage: NextPage = () => {
 
   return (
     <>
-      {product && (
+      {product ? (
         <>
           <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
           <ProductInfoWrapper>
@@ -17,6 +18,8 @@ const ProductDetailPage: NextPage = () => {
             <Price>{product.price}원</Price>
           </ProductInfoWrapper>
         </>
+      ) : (
+        <ErrorPage>존재하지 않는 상품입니다.</ErrorPage>
       )}
     </>
   );

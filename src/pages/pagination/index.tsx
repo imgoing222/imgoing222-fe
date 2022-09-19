@@ -5,16 +5,19 @@ import styled from 'styled-components';
 import ProductList from '../../components/ProductList';
 import Pagination from '../../components/pagination/Pagination';
 import useProducts from './useProducts';
+import { ErrorPage } from '../../components/ErrorPage';
 
 const PaginationPage: NextPage = () => {
   const { products, totalCount } = useProducts();
   return (
     <>
-      {products && (
+      {products ? (
         <Container>
           <ProductList products={products} />
           <Pagination totalCount={totalCount} />
         </Container>
+      ) : (
+        <ErrorPage>존재하지 않는 페이지입니다.</ErrorPage>
       )}
     </>
   );
