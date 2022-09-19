@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+
 import productApi from '../../apis/productApi';
-import { Pagination, Product } from '../../types/product';
+import { Product } from '../../types/product';
+import { placeCommas } from '../../utilities/placeCommas';
 
 const useProducts = () => {
   const [products, setProducts] = useState<Product[]>();
@@ -19,13 +21,6 @@ const useProducts = () => {
     const newProducts = placeCommas(res.data);
     setProducts(newProducts);
     setTotalCount(res.data.totalCount);
-  };
-
-  const placeCommas = (arr: Pagination) => {
-    return arr.products.map((product) => ({
-      ...product,
-      price: `${product.price.toLocaleString()}원`,
-    }));
   };
 
   return { products, totalCount };
