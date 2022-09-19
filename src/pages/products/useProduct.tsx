@@ -11,7 +11,7 @@ const useProduct = () => {
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [id]);
 
   const getProduct = async () => {
     const res = await productApi.getProductDetail(String(id));
