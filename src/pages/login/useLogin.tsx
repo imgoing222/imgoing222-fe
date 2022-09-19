@@ -20,7 +20,7 @@ const useLogin = () => {
   const [errors, setErrors] = useState({ id: '', password: '' });
   const [visited, setVisited] = useState({ id: false, password: false });
 
-  const [user, setUser] = useRecoilState(userState);
+  const [_, setUser] = useRecoilState(userState);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
   const isLoginButtonValid = ({ id, password }: LoginData) => {
@@ -60,6 +60,7 @@ const useLogin = () => {
   };
 
   return {
+    isLoggedIn,
     disabled,
     errors,
     visited,
