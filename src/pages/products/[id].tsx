@@ -2,18 +2,22 @@ import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
 
-import products from '../../api/data/products.json';
+import useProduct from './useProduct';
 
 const ProductDetailPage: NextPage = () => {
-  const product = products[0];
+  const product = useProduct();
 
   return (
     <>
-      <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
-      <ProductInfoWrapper>
-        <Name>{product.name}</Name>
-        <Price>{product.price}원</Price>
-      </ProductInfoWrapper>
+      {product && (
+        <>
+          <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
+          <ProductInfoWrapper>
+            <Name>{product.name}</Name>
+            <Price>{product.price}원</Price>
+          </ProductInfoWrapper>
+        </>
+      )}
     </>
   );
 };
