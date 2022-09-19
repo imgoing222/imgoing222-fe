@@ -1,15 +1,13 @@
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
-import useLogin from './useLogin';
-import { useRecoilState } from 'recoil';
-import { loginState } from '../../stores';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import useLogin from './useLogin';
+
 const LoginPage: NextPage = () => {
-  const { disabled, errors, visited, onSubmit, onChangeInput, showErrors } = useLogin();
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+  const { isLoggedIn, disabled, errors, visited, onSubmit, onChangeInput, showErrors } = useLogin();
   const router = useRouter();
 
   useEffect(() => {
@@ -80,7 +78,7 @@ const LoginButton = styled.button`
   border-radius: 12px;
   background-color: #222;
   color: #fff;
-
+  cursor: pointer;
   &:disabled {
     background-color: #e2e2ea;
   }
