@@ -1,15 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
+
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import usePagination from './usePagination';
+import { Pagination } from '../../types/product';
 
 interface Props {
-  totalCount: number;
+  totalCount: Pagination['totalCount'];
 }
 
 const Pagination = ({ totalCount }: Props) => {
+  const router = useRouter();
+
   const { currentPage, currentPages, pages, lastPages, onClickPage, onClickArrowButton } =
-    usePagination(totalCount);
+    usePagination({
+      totalPages: Math.ceil(totalCount / 10),
+      arraySize: 5,
+      moveToCurrentPage: (currentPage: string | string[] | undefined) => {
+        router.push(`/pagination?page=${currentPage}`);
+      },
+    });
 
   return (
     <Container>
