@@ -7,13 +7,13 @@ import Pagination from '../../components/pagination/Pagination';
 import useProducts from './useProducts';
 
 const PaginationPage: NextPage = () => {
-  const products = useProducts();
+  const { products, totalCount } = useProducts();
   return (
     <>
       {products && (
         <Container>
           <ProductList products={products} />
-          <Pagination />
+          <Pagination totalCount={totalCount} />
         </Container>
       )}
     </>

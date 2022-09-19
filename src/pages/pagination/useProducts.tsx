@@ -5,6 +5,8 @@ import { Pagination, Product } from '../../types/product';
 
 const useProducts = () => {
   const [products, setProducts] = useState<Product[]>();
+  const [totalCount, setTotalCount] = useState(0);
+
   const router = useRouter();
   const page = Number(router.query.page);
 
@@ -16,6 +18,7 @@ const useProducts = () => {
     const res = await productApi.getProducts(page, 10);
     const newProducts = placeCommas(res.data);
     setProducts(newProducts);
+    setTotalCount(res.data.totalCount);
   };
 
   const placeCommas = (arr: Pagination) => {
@@ -25,7 +28,7 @@ const useProducts = () => {
     }));
   };
 
-  return products;
+  return { products, totalCount };
 };
 
 export default useProducts;
