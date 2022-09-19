@@ -16,11 +16,11 @@ const NavigationBar = () => {
           {isLoggedIn ? (
             <div>
               <p>{user}</p>
-              <button onClick={onClickLogout}>Logout</button>
+              <Button onClick={onClickLogout}>Logout</Button>
             </div>
           ) : (
             <Link href='/login'>
-              <p>login</p>
+              <Button>login</Button>
             </Link>
           )}
         </Header>
@@ -37,5 +37,10 @@ const Header = styled.div`
 
 const Title = styled.a`
   font-size: 48px;
+  cursor: pointer;
+`;
+
+const Button = styled.button`
+  cursor: pointer;
 `;
 export default NavigationBar;
