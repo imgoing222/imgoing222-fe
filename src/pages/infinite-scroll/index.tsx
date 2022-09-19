@@ -1,15 +1,21 @@
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
+import { useRef } from 'react';
 
-import products from '../api/data/products.json';
-import ProductList from '../components/ProductList';
+import ProductList from '../../components/ProductList';
+import useInfiniteScroll from './useInfiniteScroll';
 
 const InfiniteScrollPage: NextPage = () => {
+  const observerTargetEl = useRef<HTMLDivElement>(null);
+
+  const { products } = useInfiniteScroll(observerTargetEl);
+
   return (
     <>
       <Container>
         <ProductList products={products} />
+        <div ref={observerTargetEl}></div>
       </Container>
     </>
   );
