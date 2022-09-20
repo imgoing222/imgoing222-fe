@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+
 import userApi from '../../apis/userApi';
 import { validate } from '../../utilities/validateInput';
-import { useRecoilState } from 'recoil';
 import { loginState, userState } from '../../stores';
 interface LoginData {
   id: string;
@@ -54,7 +55,6 @@ const useLogin = () => {
       setIsLoggedIn(true);
       router.push('/');
     } catch (err) {
-      // 에러 처리
       console.log(err);
     }
   };

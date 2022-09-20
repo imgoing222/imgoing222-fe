@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
+
 import { useRecoilState } from 'recoil';
 import { loginState, userState } from '../../stores';
-import { useState, useEffect } from 'react';
 
 const useNavigationBar = () => {
   const [user, setUser] = useRecoilState(userState);
