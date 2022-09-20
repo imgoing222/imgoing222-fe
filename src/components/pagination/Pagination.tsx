@@ -1,21 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
-import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import { useRouter } from 'next/router';
 
-const Pagination = () => {
+import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import usePagination from './usePagination';
+import { Pagination } from '../../types/product';
+
+interface Props {
+  totalCount: Pagination['totalCount'];
+}
+
+const Pagination = ({ totalCount }: Props) => {
+  const router = useRouter();
+
+  const { currentPage, currentPages, pages, lastPages, onClickPage, onClickArrowButton } =
+    usePagination({
+      initialPage: Number(router.query.page),
+      totalPages: Math.ceil(totalCount / 10),
+      arraySize: 5,
+      moveToCurrentPage: (currentPage: number) => {
+        router.push(`/pagination?page=${currentPage}`);
+      },
+    });
+
   return (
     <Container>
-      <Button disabled>
+      <Button id='left' disabled={currentPages === 0} onClick={onClickArrowButton}>
         <VscChevronLeft />
       </Button>
       <PageWrapper>
-        {[1, 2, 3, 4, 5].map((page) => (
-          <Page key={page} selected={page === 1} disabled={page === 1}>
+        {pages[currentPages].map((page) => (
+          <Page
+            key={page}
+            selected={page === currentPage}
+            disabled={page === currentPage}
+            onClick={onClickPage}
+          >
             {page}
           </Page>
         ))}
       </PageWrapper>
-      <Button disabled={false}>
+      <Button id='right' disabled={currentPages === lastPages - 1} onClick={onClickArrowButton}>
         <VscChevronRight />
       </Button>
     </Container>
@@ -39,6 +64,7 @@ const Button = styled.button`
     color: #e2e2ea;
     cursor: default;
   }
+  cursor: pointer;
 `;
 
 const PageWrapper = styled.div`
@@ -55,7 +81,7 @@ const Page = styled.button<PageType>`
   background-color: ${({ selected }) => (selected ? '#000' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#000')};
   font-size: 20px;
-
+  cursor: pointer;
   & + & {
     margin-left: 4px;
   }
