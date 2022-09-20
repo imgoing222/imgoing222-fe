@@ -10,8 +10,12 @@ type ProductItemProps = {
 const ProductItem = ({ product: { name, thumbnail, price, id } }: ProductItemProps) => {
   const router = useRouter();
 
+  const goToProductDetail = () => {
+    router.push(`/products/${id}`);
+  };
+
   return (
-    <Container onClick={() => router.push(`/products/${id}`)}>
+    <Container onClick={goToProductDetail}>
       <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
       <Name>{name}</Name>
       <Price>{price}</Price>

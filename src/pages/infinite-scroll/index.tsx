@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 import ProductList from '../../components/ProductList';
 import useInfiniteScroll from './useInfiniteScroll';

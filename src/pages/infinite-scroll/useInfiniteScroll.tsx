@@ -25,14 +25,12 @@ const useInfiniteScroll = (target: React.RefObject<HTMLDivElement>) => {
 
   useEffect(() => {
     if (!target.current) return;
-
     const observeIntersect = new IntersectionObserver((entries, observer) => {
       if (entries[0].isIntersecting) {
         getProducts();
       }
     });
     observeIntersect.observe(target.current);
-
     return () => {
       observeIntersect.disconnect();
     };

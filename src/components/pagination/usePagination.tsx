@@ -6,6 +6,7 @@ interface Props {
   arraySize: number;
   moveToCurrentPage: (currentPage: number) => void;
 }
+
 const usePagination = ({ initialPage, totalPages, arraySize, moveToCurrentPage }: Props) => {
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [currentPages, setCurrentPages] = useState(0);
