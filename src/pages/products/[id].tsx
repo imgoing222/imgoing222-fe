@@ -3,10 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ErrorPage } from '../../components/ErrorPage';
-import useProduct from './useProduct';
+import useProductDetail from './useProductDetail';
 
 const ProductDetailPage: NextPage = () => {
-  const product = useProduct();
+  const product = useProductDetail();
 
   return (
     <>

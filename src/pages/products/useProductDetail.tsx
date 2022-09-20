@@ -3,8 +3,13 @@ import { useState, useEffect } from 'react';
 import productApi from '../../apis/productApi';
 import { useRouter } from 'next/router';
 
-const useProduct = () => {
-  const [product, setProduct] = useState<Product>();
+const useProductDetail = () => {
+  const [product, setProduct] = useState<Product>({
+    id: '',
+    name: '',
+    thumbnail: '',
+    price: '',
+  });
 
   const router = useRouter();
   const { id } = router.query;
@@ -21,4 +26,4 @@ const useProduct = () => {
   return product;
 };
 
-export default useProduct;
+export default useProductDetail;
