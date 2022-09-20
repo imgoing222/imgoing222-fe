@@ -5,10 +5,7 @@ import { useRecoilState } from 'recoil';
 import userApi from '../../apis/userApi';
 import { validate } from '../../utilities/validateInput';
 import { loginState, userState } from '../../stores';
-interface LoginData {
-  id: string;
-  password: string;
-}
+import { UserLogin } from '../../types/user';
 
 const useLogin = () => {
   const router = useRouter();
@@ -24,7 +21,7 @@ const useLogin = () => {
   const [_, setUser] = useRecoilState(userState);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
-  const isLoginButtonValid = ({ id, password }: LoginData) => {
+  const isLoginButtonValid = ({ id, password }: UserLogin) => {
     if (validate('id', id) && validate('password', password)) setDisabled(false);
     else setDisabled(true);
   };

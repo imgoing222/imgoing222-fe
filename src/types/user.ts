@@ -8,3 +8,8 @@ export interface UserInfo {
 export interface Login extends UserInfo {
   accessToken: string;
 }
+
+export interface UserLogin {
+  id: string;
+  password: string;
+}

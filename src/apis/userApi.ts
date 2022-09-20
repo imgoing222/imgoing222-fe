@@ -1,9 +1,9 @@
 import { request } from './index';
 import { AxiosResponse } from 'axios';
-import { Login, UserInfo } from '../types/user';
+import { Login, UserInfo, UserLogin } from '../types/user';
 
 interface UserApiType {
-  login: (userInfo: { id: string; password: string }) => Promise<AxiosResponse<Login>>;
+  login: (userInfo: UserLogin) => Promise<AxiosResponse<Login>>;
   getUserInfo: (userId: string) => Promise<AxiosResponse<UserInfo>>;
 }
 
