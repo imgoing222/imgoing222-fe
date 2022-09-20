@@ -15,9 +15,10 @@ const Pagination = ({ totalCount }: Props) => {
 
   const { currentPage, currentPages, pages, lastPages, onClickPage, onClickArrowButton } =
     usePagination({
+      initialPage: Number(router.query.page),
       totalPages: Math.ceil(totalCount / 10),
       arraySize: 5,
-      moveToCurrentPage: (currentPage: string | string[] | undefined) => {
+      moveToCurrentPage: (currentPage: number) => {
         router.push(`/pagination?page=${currentPage}`);
       },
     });

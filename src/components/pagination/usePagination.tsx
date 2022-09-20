@@ -1,29 +1,34 @@
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 
 interface Props {
+  initialPage: number;
   totalPages: number;
   arraySize: number;
-  moveToCurrentPage: (currentPage: string | string[] | undefined) => void;
+  moveToCurrentPage: (currentPage: number) => void;
 }
-const usePagination = ({ totalPages, arraySize, moveToCurrentPage }: Props) => {
-  const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(router.query.page);
+const usePagination = ({ initialPage, totalPages, arraySize, moveToCurrentPage }: Props) => {
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const [currentPages, setCurrentPages] = useState(0);
 
   const lastPages = Math.ceil(totalPages / arraySize);
-  let tmp = [...Array(totalPages)].map((_, i) => String(i + 1));
-  let pages: Array<string[]> = [];
-  for (let i = 0; i < lastPages; i++) {
-    pages.push(tmp.splice(0, arraySize));
-  }
+
+  const getPaginationList = () => {
+    let tmpPages = [];
+    let tmp = [...Array(totalPages)].map((_, i) => i + 1);
+    for (let i = 0; i < lastPages; i++) {
+      tmpPages.push(tmp.splice(0, arraySize));
+    }
+    return tmpPages;
+  };
+
+  const pages: number[][] = useMemo(() => getPaginationList(), [totalPages, arraySize]);
 
   useEffect(() => {
     moveToCurrentPage(currentPage);
   }, [currentPage]);
 
   const onClickPage = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setCurrentPage(e.currentTarget.innerText);
+    setCurrentPage(Number(e.currentTarget.innerText));
   };
 
   const onClickArrowButton = (e: React.MouseEvent<HTMLButtonElement>) => {
