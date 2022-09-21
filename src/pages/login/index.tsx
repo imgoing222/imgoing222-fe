@@ -19,12 +19,24 @@ const LoginPage: NextPage = () => {
       <Form onSubmit={onSubmit}>
         <div>
           <Label>아이디</Label>
-          <TextInput type='text' id='id' onChange={onChangeInput} onBlur={showErrors} />
+          <TextInput
+            type='text'
+            id='id'
+            onChange={onChangeInput}
+            onBlur={showErrors}
+            isValid={!(visited.id && errors.id)}
+          />
           {visited.id && <ErrorMessage>{errors.id}</ErrorMessage>}
         </div>
         <div>
           <Label>비밀번호</Label>
-          <TextInput type='password' id='password' onChange={onChangeInput} onBlur={showErrors} />
+          <TextInput
+            type='password'
+            id='password'
+            onChange={onChangeInput}
+            onBlur={showErrors}
+            isValid={!(visited.password && errors.password)}
+          />
           {visited.password && <ErrorMessage>{errors.password}</ErrorMessage>}
         </div>
         <LoginButton disabled={disabled} type='submit'>
@@ -57,11 +69,15 @@ const Label = styled.label`
   color: #6c6c7d;
 `;
 
-// 에러 시 background-color: #FDEDEE
-const TextInput = styled.input`
+interface InputProps {
+  isValid: boolean;
+}
+
+// 에러 시 background-color:
+const TextInput = styled.input<InputProps>`
   margin-top: 8px;
   padding: 16px;
-  background-color: #f7f7fa;
+  background-color: ${({ isValid }) => (isValid ? '#f7f7fa' : '#fdedee')};
   border-radius: 12px;
 `;
 
